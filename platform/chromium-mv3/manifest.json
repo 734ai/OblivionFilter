@@ -34,6 +34,8 @@
         "/js/stealth/signature-obfuscation.js",
         "/js/stealth/traffic-randomization.js",
         "/js/stealth/behavioral-mimicry.js",
+        "/js/censorship/ipfs-integration.js",
+        "/js/intelligence/ml-heuristics.js",
         "/js/contentscript.js"
       ],
       "css": [

@@ -94,15 +94,34 @@ const oblivionContentConfig = {
             statisticalPoisoning: true
         },
         
-        // v2.0.0 Behavioral Mimicry
+                // v2.0.0 Behavioral Mimicry
         behavioralMimicry: {
             enabled: true,
             mouseMovements: true,
-            scrollingPatterns: true,
-            interactionSimulation: true,
-            humanTiming: true,
-            contextAwareness: true
+            naturalScrolling: true,
+            keyboardSimulation: true,
+            contextualBehavior: true,
+            timingVariation: true
         }
+    },
+    
+    // v2.0.0 Phase 3: Censorship Resistance Features
+    censorship: {
+        enableIPFS: true,
+        decentralizedUpdates: true,
+        peerToPeerFallback: true,
+        gatewayRotation: true,
+        updateVerification: true
+    },
+    
+    // v2.1.0 Machine Learning & Intelligence Features
+    intelligence: {
+        enableML: false, // Will be enabled in v2.1.0
+        realTimeAnalysis: true,
+        adaptiveLearning: true,
+        featureExtraction: true,
+        behavioralAnalysis: true,
+        contentClassification: true
     },
     
     performance: {
@@ -701,6 +720,65 @@ const antiDetectionEngine = (function() {
             console.info('OblivionFilter: Behavioral Mimicry Engine v2.0.0 configured in content script');
         } catch (error) {
             console.warn('OblivionFilter: Behavioral Mimicry initialization failed:', error);
+        }
+    }
+    
+    // v2.0.0: Initialize IPFS Integration Engine (Phase 3 - Censorship Resistance)
+    if (typeof IPFSIntegrationEngine !== 'undefined' && oblivionContentConfig.censorship?.enableIPFS) {
+        try {
+            // Configure for content script context
+            IPFSIntegrationEngine.updateConfig({
+                enabled: true,
+                usePublicGateways: true,
+                fallbackToGitHub: true,
+                performance: {
+                    cacheResults: true,
+                    maxProcessingTime: 100
+                }
+            });
+            
+            // Initialize IPFS integration
+            IPFSIntegrationEngine.initialize().then(() => {
+                console.info('OblivionFilter: IPFS Integration Engine v2.0.0 initialized in content script');
+            }).catch(error => {
+                console.warn('OblivionFilter: IPFS Integration initialization failed:', error);
+            });
+            
+        } catch (error) {
+            console.warn('OblivionFilter: IPFS Integration setup failed:', error);
+        }
+    }
+    
+    // v2.1.0: Initialize ML Heuristic Engine (Machine Learning & Intelligence)
+    if (typeof MLHeuristicEngine !== 'undefined' && oblivionContentConfig.intelligence?.enableML) {
+        try {
+            // Configure for content script context
+            MLHeuristicEngine.updateConfig({
+                enabled: true,
+                learningMode: true,
+                confidenceThreshold: 0.75,
+                features: {
+                    dom: { enabled: true },
+                    css: { enabled: true },
+                    network: { enabled: false }, // Limited in content script
+                    behavioral: { enabled: true }
+                },
+                performance: {
+                    maxProcessingTime: 50, // Faster for real-time analysis
+                    cacheResults: true,
+                    enableParallelProcessing: false // Single thread in content script
+                }
+            });
+            
+            // Initialize ML engine
+            MLHeuristicEngine.initialize().then(() => {
+                console.info('OblivionFilter: ML Heuristic Engine v2.1.0 initialized in content script');
+            }).catch(error => {
+                console.warn('OblivionFilter: ML Heuristic initialization failed:', error);
+            });
+            
+        } catch (error) {
+            console.warn('OblivionFilter: ML Heuristic setup failed:', error);
         }
     }
     

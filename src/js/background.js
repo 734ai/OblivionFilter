@@ -80,9 +80,46 @@ const oblivionConfig = {
         // v2.0.0 Behavioral Mimicry
         behavioralMimicry: {
             enabled: true,
-            coordinateAcrossTabs: true,
-            globalBehaviorSync: true,
-            backgroundSimulation: false // Limited in background context
+            humanBehaviorSim: true,
+            naturalMouseMovement: true,
+            contextAwareness: true,
+            interactionDelay: true,
+            
+            // Background-specific behavioral settings
+            globalBehaviorCoordination: true,
+            crossTabSync: true,
+            behaviorMemory: true,
+            adaptiveBehavior: true
+        },
+        
+        // v2.0.0 IPFS Integration (Phase 3 - Censorship Resistance)
+        ipfsIntegration: {
+            enabled: true,
+            usePublicGateways: true,
+            fallbackToGitHub: true,
+            compressionEnabled: true,
+            autoUpdateEnabled: true,
+            
+            // Background-specific IPFS settings
+            gatewayManagement: true,
+            failoverHandling: true,
+            updateCoordination: true,
+            cacheManagement: true
+        },
+        
+        // v2.1.0 ML Heuristics (Machine Learning & Intelligence)
+        mlHeuristics: {
+            enabled: false, // Enabling in v2.1.0
+            learningMode: true,
+            confidenceThreshold: 0.75,
+            autoCollectTrainingData: true,
+            enableNeuralNetwork: true,
+            
+            // Background-specific ML settings
+            globalModelManagement: true,
+            distributedLearning: false, // Future feature
+            modelSyncAcrossTabs: true,
+            backgroundTraining: true
         }
     },
     performance: {
