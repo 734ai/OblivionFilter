@@ -66,28 +66,46 @@ if ( typeof vAPI !== 'object' || vAPI === null ) {
 
 /******************************************************************************/
 
-// OblivionFilter enhanced configuration
+// OblivionFilter enhanced configuration - v2.0.0
 const oblivionContentConfig = {
+    version: '2.0.0',
     stealth: {
         enabled: true,
         maxRandomDelay: 500, // Maximum random delay in ms
         detectionCountermeasures: true,
         signatureObfuscation: true,
-        behavioralMimicry: true
+        behavioralMimicry: true,
+        
+        // v2.0.0 Advanced Features
+        enableDOMCloaking: true,
+        enableShadowDOM: true,
+        enableAdvancedObfuscation: true,
+        maxCloakedElements: 500, // Per tab limit
+        selectorObfuscation: true,
+        attributeScrambling: true
     },
     
     performance: {
         lazyDOMProcessing: true,
         throttleObservations: true,
         batchDOMOperations: true,
-        optimizeSelectors: true
+        optimizeSelectors: true,
+        
+        // v2.0.0 Memory management
+        enableMemoryProtection: true,
+        cleanupInterval: 300000 // 5 minutes
     },
     
     antiDetection: {
         detectAntiAdblock: true,
         counterDetection: true,
         stealthyInjection: true,
-        randomizedTiming: true
+        randomizedTiming: true,
+        
+        // v2.0.0 Enhanced anti-detection
+        contextualBehavior: true,
+        dynamicMethodNames: true,
+        advancedCountermeasures: true
     }
 };
 
@@ -543,9 +561,9 @@ const antiDetectionEngine = (function() {
 
 /******************************************************************************/
 
-// Enhanced initialization sequence
+// Enhanced initialization sequence - v2.0.0
 (function() {
-    console.info('OblivionFilter: Enhanced content script initializing...');
+    console.info('OblivionFilter: Enhanced content script v2.0.0 initializing...');
     
     // Check if page should be processed
     if (document.documentElement.getAttribute('data-oblivion-processed')) {
@@ -555,6 +573,30 @@ const antiDetectionEngine = (function() {
     
     // Mark page as processed
     document.documentElement.setAttribute('data-oblivion-processed', 'true');
+    
+    // v2.0.0: Initialize DOM Cloaking Engine
+    if (oblivionContentConfig.stealth.enableDOMCloaking && typeof DOMCloakingEngine !== 'undefined') {
+        try {
+            DOMCloakingEngine.updateConfig({
+                enableShadowDOM: oblivionContentConfig.stealth.enableShadowDOM,
+                enableAdvancedCloaking: oblivionContentConfig.stealth.enableAdvancedObfuscation,
+                maxCloakedElements: oblivionContentConfig.stealth.maxCloakedElements,
+                enableMemoryProtection: oblivionContentConfig.performance.enableMemoryProtection,
+                cleanupInterval: oblivionContentConfig.performance.cleanupInterval,
+                selectorObfuscation: oblivionContentConfig.stealth.selectorObfuscation,
+                attributeScrambling: oblivionContentConfig.stealth.attributeScrambling,
+                dynamicMethodNames: oblivionContentConfig.antiDetection.dynamicMethodNames,
+                contextualBehavior: oblivionContentConfig.antiDetection.contextualBehavior
+            });
+            
+            // Initialize with content script context
+            DOMCloakingEngine.initialize();
+            
+            console.info('OblivionFilter: DOM Cloaking Engine v2.0.0 initialized in content script');
+        } catch (error) {
+            console.warn('OblivionFilter: DOM Cloaking initialization failed:', error);
+        }
+    }
     
     // Initialize components based on configuration
     if (oblivionContentConfig.antiDetection.detectAntiAdblock) {
@@ -573,7 +615,13 @@ const antiDetectionEngine = (function() {
         '.promoted'
     ]);
     
-    console.info('OblivionFilter: Enhanced content script initialization complete');
+    console.info('OblivionFilter: Enhanced content script v2.0.0 initialization complete');
+    console.info('OblivionFilter: Active features:', {
+        domCloaking: oblivionContentConfig.stealth.enableDOMCloaking,
+        shadowDOM: oblivionContentConfig.stealth.enableShadowDOM,
+        memoryProtection: oblivionContentConfig.performance.enableMemoryProtection,
+        advancedCountermeasures: oblivionContentConfig.antiDetection.advancedCountermeasures
+    });
 })();
 
 /******************************************************************************/

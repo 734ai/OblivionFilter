@@ -23,28 +23,47 @@
 
 /******************************************************************************/
 
-// OblivionFilter Configuration
+// OblivionFilter Configuration - Enhanced for v2.0.0
 const oblivionConfig = {
-    version: '1.0.0',
-    build: 'stealth',
+    version: '2.0.0',
+    build: 'stealth-advanced',
     features: {
         antiAdblock: true,
         stealthMode: true,
         decentralizedUpdates: true,
         manifestV3Resistance: true,
         zeroTelemetry: true,
-        advancedFiltering: true
+        advancedFiltering: true,
+        
+        // v2.0.0 New Features
+        advancedDOMCloaking: true,
+        shadowDOMSupport: true,
+        machineLearningHeuristics: false, // v2.1.0
+        behavioralMimicry: true,
+        memoryProtection: true,
+        selectorObfuscation: true
     },
     stealth: {
         randomDelayMin: 50,
         randomDelayMax: 200,
-        obfuscationLevel: 3,
+        obfuscationLevel: 4, // Increased for v2.0.0
         antiFingerprinting: true,
         domCloaking: true,
-        signatureObfuscation: true
+        signatureObfuscation: true,
+        
+        // v2.0.0 Advanced Stealth
+        enableShadowDOM: true,
+        enableAdvancedCloaking: true,
+        enableMemoryProtection: true,
+        maxCloakedElements: 1000,
+        cleanupInterval: 300000,
+        selectorObfuscation: true,
+        attributeScrambling: true,
+        dynamicMethodNames: true,
+        contextualBehavior: true
     },
     performance: {
-        maxMemoryUsage: 50 * 1024 * 1024, // 50MB
+        maxMemoryUsage: 75 * 1024 * 1024, // 75MB for v2.0.0
         filterEvalTimeout: 1, // 1ms
         startupTimeout: 500, // 500ms
         maxRulesPerList: 100000
@@ -308,6 +327,7 @@ const OblivionFilter = (function() {
         if (initialized) return;
 
         console.log('[OblivionFilter] Initializing v' + oblivionConfig.version + ' (' + oblivionConfig.build + ')');
+        console.log('[OblivionFilter] Enhanced features:', oblivionConfig.features);
 
         try {
             // Load settings
@@ -319,12 +339,85 @@ const OblivionFilter = (function() {
             // Setup request interceptor
             setupRequestInterceptor();
 
+            // v2.0.0: Initialize advanced stealth features
+            if (oblivionConfig.features.advancedDOMCloaking) {
+                await initializeStealthFeatures();
+            }
+
             initialized = true;
-            console.log('[OblivionFilter] Initialization complete');
+            console.log('[OblivionFilter] v2.0.0 initialization complete with advanced stealth');
+            console.log('[OblivionFilter] Memory protection:', oblivionConfig.features.memoryProtection);
+            console.log('[OblivionFilter] Shadow DOM support:', oblivionConfig.features.shadowDOMSupport);
 
         } catch (error) {
             console.error('[OblivionFilter] Initialization failed:', error);
         }
+    };
+
+    /******************************************************************************/
+
+    // v2.0.0: Initialize advanced stealth features
+    const initializeStealthFeatures = async function() {
+        console.log('[OblivionFilter] Initializing advanced stealth features...');
+
+        try {
+            // Initialize DOM cloaking engine with v2.0.0 config
+            if (typeof DOMCloakingEngine !== 'undefined') {
+                DOMCloakingEngine.updateConfig({
+                    enableShadowDOM: oblivionConfig.stealth.enableShadowDOM,
+                    enableAdvancedCloaking: oblivionConfig.stealth.enableAdvancedCloaking,
+                    enableMemoryProtection: oblivionConfig.stealth.enableMemoryProtection,
+                    maxCloakedElements: oblivionConfig.stealth.maxCloakedElements,
+                    cleanupInterval: oblivionConfig.stealth.cleanupInterval,
+                    selectorObfuscation: oblivionConfig.stealth.selectorObfuscation,
+                    attributeScrambling: oblivionConfig.stealth.attributeScrambling,
+                    dynamicMethodNames: oblivionConfig.stealth.dynamicMethodNames
+                });
+
+                console.log('[OblivionFilter] DOM Cloaking Engine v2.0.0 configured');
+            }
+
+            // Initialize signature obfuscation
+            if (typeof SignatureObfuscationEngine !== 'undefined') {
+                SignatureObfuscationEngine.updateConfig({
+                    obfuscationLevel: oblivionConfig.stealth.obfuscationLevel,
+                    enableRotation: true,
+                    rotationInterval: 60000 // 1 minute
+                });
+
+                console.log('[OblivionFilter] Signature Obfuscation Engine configured');
+            }
+
+            // Initialize behavioral mimicry
+            if (oblivionConfig.features.behavioralMimicry) {
+                await initializeBehavioralMimicry();
+            }
+
+            console.log('[OblivionFilter] Advanced stealth features initialized successfully');
+
+        } catch (error) {
+            console.error('[OblivionFilter] Stealth initialization failed:', error);
+        }
+    };
+
+    /******************************************************************************/
+
+    // v2.0.0: Initialize behavioral mimicry
+    const initializeBehavioralMimicry = async function() {
+        // Randomize timing patterns to mimic human behavior
+        const humanTimingPatterns = {
+            minDelay: oblivionConfig.stealth.randomDelayMin,
+            maxDelay: oblivionConfig.stealth.randomDelayMax,
+            varianceThreshold: 0.3, // 30% variance
+            naturalPauses: [100, 250, 500, 750, 1000] // Common human pause durations
+        };
+
+        // Apply behavioral patterns to filter engine
+        if (staticFilterEngine) {
+            staticFilterEngine.setBehavioralMimicry(humanTimingPatterns);
+        }
+
+        console.log('[OblivionFilter] Behavioral mimicry initialized');
     };
 
     /******************************************************************************/
