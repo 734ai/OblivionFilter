@@ -60,7 +60,22 @@ const oblivionConfig = {
         selectorObfuscation: true,
         attributeScrambling: true,
         dynamicMethodNames: true,
-        contextualBehavior: true
+        contextualBehavior: true,
+        
+        // v2.0.0 Traffic Randomization
+        trafficRandomization: {
+            enabled: true,
+            aggressiveMode: false,
+            timingRandomization: true,
+            headerRandomization: true,
+            dummyTraffic: true,
+            statisticalPoisoning: true,
+            
+            // Background-specific settings
+            globalTrafficManagement: true,
+            crossTabCoordination: true,
+            networkLevelObfuscation: true
+        }
     },
     performance: {
         maxMemoryUsage: 75 * 1024 * 1024, // 75MB for v2.0.0
@@ -391,6 +406,54 @@ const OblivionFilter = (function() {
             // Initialize behavioral mimicry
             if (oblivionConfig.features.behavioralMimicry) {
                 await initializeBehavioralMimicry();
+            }
+
+            // v2.0.0: Initialize Traffic Randomization Engine
+            if (oblivionConfig.stealth.trafficRandomization.enabled && 
+                typeof TrafficRandomizationEngine !== 'undefined') {
+                TrafficRandomizationEngine.updateConfig({
+                    enabled: oblivionConfig.stealth.trafficRandomization.enabled,
+                    aggressiveMode: oblivionConfig.stealth.trafficRandomization.aggressiveMode,
+                    
+                    timing: {
+                        baseDelay: { min: 20, max: 300 }, // Higher delays for background
+                        requestSpacing: { min: 100, max: 1000 },
+                        burstPrevention: {
+                            enabled: true,
+                            maxConcurrent: 5,
+                            cooldownPeriod: 2000
+                        }
+                    },
+                    
+                    patterns: {
+                        headerRandomization: oblivionConfig.stealth.trafficRandomization.headerRandomization,
+                        userAgentRotation: true,
+                        referrerMasking: true,
+                        acceptHeaderVariation: true
+                    },
+                    
+                    dummyTraffic: {
+                        enabled: oblivionConfig.stealth.trafficRandomization.dummyTraffic,
+                        frequency: { min: 120000, max: 600000 }, // 2-10 minutes for background
+                        targets: [
+                            'https://httpbin.org/delay/1',
+                            'https://httpbin.org/bytes/512',
+                            'https://httpbin.org/uuid',
+                            'https://httpbin.org/headers',
+                            'https://httpbin.org/user-agent'
+                        ]
+                    },
+                    
+                    antiAnalysis: {
+                        statisticalPoisoning: oblivionConfig.stealth.trafficRandomization.statisticalPoisoning,
+                        temporalDecorrelation: true,
+                        volumeObfuscation: true,
+                        behavioralMimicry: true
+                    }
+                });
+
+                TrafficRandomizationEngine.initialize();
+                console.log('[OblivionFilter] Traffic Randomization Engine v2.0.0 configured');
             }
 
             console.log('[OblivionFilter] Advanced stealth features initialized successfully');

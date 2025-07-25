@@ -30,7 +30,10 @@
       ],
       "js": [
         "/js/vapi.js",
-        "/js/vapi-client.js", 
+        "/js/vapi-client.js",
+        "/js/stealth/dom-cloaking.js",
+        "/js/stealth/signature-obfuscation.js",
+        "/js/stealth/traffic-randomization.js", 
         "/js/contentscript.js"
       ],
       "css": [

@@ -82,7 +82,17 @@ const oblivionContentConfig = {
         enableAdvancedObfuscation: true,
         maxCloakedElements: 500, // Per tab limit
         selectorObfuscation: true,
-        attributeScrambling: true
+        attributeScrambling: true,
+        
+        // v2.0.0 Traffic Randomization
+        trafficRandomization: {
+            enabled: true,
+            aggressiveMode: false,
+            timingRandomization: true,
+            headerRandomization: true,
+            dummyTraffic: true,
+            statisticalPoisoning: true
+        }
     },
     
     performance: {
@@ -595,6 +605,45 @@ const antiDetectionEngine = (function() {
             console.info('OblivionFilter: DOM Cloaking Engine v2.0.0 initialized in content script');
         } catch (error) {
             console.warn('OblivionFilter: DOM Cloaking initialization failed:', error);
+        }
+    }
+    
+    // v2.0.0: Initialize Traffic Randomization Engine
+    if (oblivionContentConfig.stealth.trafficRandomization.enabled && 
+        typeof TrafficRandomizationEngine !== 'undefined') {
+        try {
+            TrafficRandomizationEngine.updateConfig({
+                enabled: oblivionContentConfig.stealth.trafficRandomization.enabled,
+                aggressiveMode: oblivionContentConfig.stealth.trafficRandomization.aggressiveMode,
+                
+                timing: {
+                    baseDelay: { min: 10, max: 150 },
+                    requestSpacing: { min: 50, max: 500 }
+                },
+                
+                patterns: {
+                    headerRandomization: oblivionContentConfig.stealth.trafficRandomization.headerRandomization,
+                    userAgentRotation: true,
+                    referrerMasking: true
+                },
+                
+                dummyTraffic: {
+                    enabled: oblivionContentConfig.stealth.trafficRandomization.dummyTraffic,
+                    frequency: { min: 60000, max: 300000 } // 1-5 minutes for content scripts
+                },
+                
+                antiAnalysis: {
+                    statisticalPoisoning: oblivionContentConfig.stealth.trafficRandomization.statisticalPoisoning,
+                    temporalDecorrelation: true,
+                    volumeObfuscation: true
+                }
+            });
+            
+            TrafficRandomizationEngine.initialize();
+            
+            console.info('OblivionFilter: Traffic Randomization Engine v2.0.0 initialized in content script');
+        } catch (error) {
+            console.warn('OblivionFilter: Traffic Randomization initialization failed:', error);
         }
     }
     
