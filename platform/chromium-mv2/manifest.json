@@ -33,6 +33,7 @@
                     "js/stealth/traffic-randomization.js",
                     "js/stealth/behavioral-mimicry.js",
                     "js/censorship/ipfs-integration.js",
+                    "js/censorship/p2p-network.js",
                     "js/intelligence/ml-heuristics.js"
                 ],
                 "run_at": "document_start"

@@ -107,6 +107,21 @@ const oblivionConfig = {
             cacheManagement: true
         },
         
+        // v2.0.0 P2P Network (Phase 3 - Enhanced Censorship Resistance)
+        p2pNetwork: {
+            enabled: true,
+            autoConnect: true,
+            maxPeers: 20,
+            maxConnections: 8,
+            
+            // Background-specific P2P settings
+            coordinateFilterUpdates: true,
+            enableDHT: true,
+            enableMeshRouting: true,
+            peerDiscovery: true,
+            filterDistribution: true
+        },
+        
         // v2.1.0 ML Heuristics (Machine Learning & Intelligence)
         mlHeuristics: {
             enabled: false, // Enabling in v2.1.0

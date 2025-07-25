@@ -799,12 +799,22 @@ const antiDetectionEngine = (function() {
         '.promoted'
     ]);
     
+    // Initialize P2P Network Engine if available
+    if (typeof P2PNetworkEngine !== 'undefined') {
+        P2PNetworkEngine.initialize().then(() => {
+            console.info('OblivionFilter: P2P Network Engine initialized successfully');
+        }).catch(error => {
+            console.warn('OblivionFilter: P2P Network Engine initialization failed:', error);
+        });
+    }
+    
     console.info('OblivionFilter: Enhanced content script v2.0.0 initialization complete');
     console.info('OblivionFilter: Active features:', {
         domCloaking: oblivionContentConfig.stealth.enableDOMCloaking,
         shadowDOM: oblivionContentConfig.stealth.enableShadowDOM,
         memoryProtection: oblivionContentConfig.performance.enableMemoryProtection,
-        advancedCountermeasures: oblivionContentConfig.antiDetection.advancedCountermeasures
+        advancedCountermeasures: oblivionContentConfig.antiDetection.advancedCountermeasures,
+        p2pNetwork: typeof P2PNetworkEngine !== 'undefined'
     });
 })();
 

@@ -21,33 +21,24 @@
     "default_popup": "popup.html"
   },
   
-  "content_scripts": [
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "/js/vapi.js",
-        "/js/vapi-client.js",
-        "/js/stealth/dom-cloaking.js",
-        "/js/stealth/signature-obfuscation.js",
-        "/js/stealth/traffic-randomization.js",
-        "/js/stealth/behavioral-mimicry.js",
-        "/js/censorship/ipfs-integration.js",
-        "/js/intelligence/ml-heuristics.js",
-        "/js/contentscript.js"
-      ],
-      "css": [
-        "/css/contentscript.css"
-      ],
-      "all_frames": true,
-      "match_about_blank": true,
-      "run_at": "document_start"
-    }
-  ],
-  
-  "permissions": [
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "js/vapi.js", 
+                "js/vapi-client.js",
+                "js/contentscript.js",
+                "js/stealth/dom-cloaking.js",
+                "js/stealth/signature-obfuscation.js",
+                "js/stealth/traffic-randomization.js",
+                "js/stealth/behavioral-mimicry.js",
+                "js/censorship/ipfs-integration.js",
+                "js/censorship/p2p-network.js",
+                "js/intelligence/ml-heuristics.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],  "permissions": [
     "tabs",
     "activeTab",
     "storage",
