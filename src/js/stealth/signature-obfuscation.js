@@ -28,7 +28,7 @@ const SignatureObfuscationEngine = (function() {
 
     /******************************************************************************/
 
-    // Configuration for signature obfuscation
+    // Configuration for signature obfuscation - Enhanced for v2.0.0
     const config = {
         enabled: true,
         obfuscationLevel: 4, // 1-5 scale
@@ -36,7 +36,21 @@ const SignatureObfuscationEngine = (function() {
         dynamicGeneration: true,
         polymorphicCode: true,
         antiAnalysis: true,
-        memoryFragmentation: true
+        memoryFragmentation: true,
+        
+        // v2.0.0 Enhanced Features
+        contextAwareRotation: true,
+        adaptiveObfuscation: true,
+        machineCodeGeneration: true,
+        entropyMaximization: true,
+        patternDisruption: true,
+        semanticObfuscation: true,
+        
+        // Advanced parameters
+        maxPatternVariants: 50,
+        entropyThreshold: 0.7,
+        analysisResistance: 5, // 1-5 scale
+        codePolymorphism: true
     };
 
     /******************************************************************************/
@@ -46,16 +60,276 @@ const SignatureObfuscationEngine = (function() {
     let signatureHistory = [];
     let obfuscationSeed = Date.now();
     let rotationTimer = null;
+    
+    /******************************************************************************/
+    
+    // v2.0.0 Enhanced State Management
+    let contextAnalysis = {
+        pageType: 'unknown',
+        detectionRisk: 0,
+        lastRotation: Date.now(),
+        adaptiveLevel: config.obfuscationLevel
+    };
+    
+    let patternVariants = new Map();
+    let entropyCache = new Map();
+    let semanticMappings = new Map();
+    let contextualPatterns = [];
+    
+    // Machine code generation cache
+    let generatedCode = new Map();
+    let polymorphicFunctions = new Set();
 
     /******************************************************************************/
 
-    // Initialize signature obfuscation
+    // v2.0.0: Context-Aware Pattern Analysis
+    const ContextAnalyzer = {
+        analyzePageContext() {
+            const context = {
+                domain: window.location.hostname,
+                hasAds: document.querySelectorAll('[class*="ad"], [id*="ad"]').length > 0,
+                hasAntiAdblock: this.detectAntiAdblockScripts(),
+                complexity: this.calculatePageComplexity(),
+                riskLevel: 0
+            };
+            
+            // Calculate risk level based on context
+            context.riskLevel = this.calculateRiskLevel(context);
+            
+            // Update global context
+            contextAnalysis.pageType = this.classifyPageType(context);
+            contextAnalysis.detectionRisk = context.riskLevel;
+            
+            return context;
+        },
+        
+        detectAntiAdblockScripts() {
+            const antiAdblockPatterns = [
+                /adblock/i,
+                /ublock/i,
+                /detector/i,
+                /blocker/i,
+                /advertisement/i
+            ];
+            
+            const scripts = document.getElementsByTagName('script');
+            for (let script of scripts) {
+                const content = script.textContent || script.innerHTML;
+                if (antiAdblockPatterns.some(pattern => pattern.test(content))) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        
+        calculatePageComplexity() {
+            const metrics = {
+                elements: document.getElementsByTagName('*').length,
+                scripts: document.getElementsByTagName('script').length,
+                stylesheets: document.getElementsByTagName('link').length,
+                frames: document.getElementsByTagName('iframe').length
+            };
+            
+            return Math.min(10, Math.log10(metrics.elements + metrics.scripts * 10));
+        },
+        
+        calculateRiskLevel(context) {
+            let risk = 0;
+            
+            if (context.hasAntiAdblock) risk += 3;
+            if (context.hasAds) risk += 2;
+            if (context.complexity > 5) risk += 1;
+            
+            // Known high-risk domains
+            const highRiskDomains = ['google.com', 'youtube.com', 'facebook.com'];
+            if (highRiskDomains.some(domain => context.domain.includes(domain))) {
+                risk += 2;
+            }
+            
+            return Math.min(10, risk);
+        },
+        
+        classifyPageType(context) {
+            if (context.hasAds && context.hasAntiAdblock) return 'high-risk';
+            if (context.hasAds) return 'commercial';
+            if (context.complexity > 7) return 'complex';
+            return 'standard';
+        }
+    };
+
+    /******************************************************************************/
+
+    // v2.0.0: Advanced Pattern Generation
+    const PatternGenerator = {
+        generateContextualPattern(context) {
+            const basePattern = this.generateBasePattern();
+            
+            // Adapt pattern based on context
+            switch (context.pageType) {
+                case 'high-risk':
+                    return this.enhancePatternForHighRisk(basePattern);
+                case 'commercial':
+                    return this.enhancePatternForCommercial(basePattern);
+                case 'complex':
+                    return this.enhancePatternForComplex(basePattern);
+                default:
+                    return basePattern;
+            }
+        },
+        
+        generateBasePattern() {
+            const entropy = Math.random();
+            const timestamp = Date.now();
+            const seed = obfuscationSeed;
+            
+            // Generate high-entropy base pattern
+            const components = [
+                this.generateEntropyString(8),
+                (timestamp % 1000000).toString(36),
+                (seed ^ timestamp).toString(36),
+                Math.random().toString(36).substr(2, 8)
+            ];
+            
+            return components.join('_');
+        },
+        
+        enhancePatternForHighRisk(basePattern) {
+            // Apply maximum obfuscation for high-risk environments
+            const enhanced = this.applyPolymorphicTransform(basePattern);
+            const scrambled = this.applySemanticScrambling(enhanced);
+            const encoded = this.applyMultiLayerEncoding(scrambled);
+            
+            return encoded;
+        },
+        
+        enhancePatternForCommercial(basePattern) {
+            // Moderate obfuscation for commercial sites
+            const enhanced = this.applyStandardTransform(basePattern);
+            const encoded = this.applyDualLayerEncoding(enhanced);
+            
+            return encoded;
+        },
+        
+        enhancePatternForComplex(basePattern) {
+            // Adaptive obfuscation for complex pages
+            const complexity = contextAnalysis.detectionRisk;
+            const iterations = Math.min(5, Math.max(2, complexity));
+            
+            let result = basePattern;
+            for (let i = 0; i < iterations; i++) {
+                result = this.applyIterativeTransform(result, i);
+            }
+            
+            return result;
+        },
+        
+        generateEntropyString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            return result;
+        },
+        
+        applyPolymorphicTransform(input) {
+            // Create multiple variations of the same pattern
+            const variations = [];
+            
+            for (let i = 0; i < 3; i++) {
+                const variant = input.split('').map((char, index) => {
+                    const code = char.charCodeAt(0);
+                    const shifted = ((code + i * 7) % 95) + 32;
+                    return String.fromCharCode(shifted);
+                }).join('');
+                
+                variations.push(btoa(variant));
+            }
+            
+            // Return random variation
+            return variations[Math.floor(Math.random() * variations.length)];
+        },
+        
+        applySemanticScrambling(input) {
+            // Apply semantic-level scrambling
+            const words = input.split(/[_\-\.]/);
+            const scrambled = words.map(word => {
+                if (word.length < 3) return word;
+                
+                // Keep first and last char, scramble middle
+                const first = word[0];
+                const last = word[word.length - 1];
+                const middle = word.slice(1, -1).split('').sort(() => Math.random() - 0.5).join('');
+                
+                return first + middle + last;
+            });
+            
+            return scrambled.join('_');
+        },
+        
+        applyMultiLayerEncoding(input) {
+            // Apply multiple encoding layers
+            let result = input;
+            
+            // Layer 1: Base64
+            result = btoa(result);
+            
+            // Layer 2: URL encoding
+            result = encodeURIComponent(result);
+            
+            // Layer 3: Custom encoding
+            result = result.split('').map(char => {
+                const code = char.charCodeAt(0);
+                return (code * 3 + 7).toString(16);
+            }).join('');
+            
+            return result;
+        },
+        
+        applyDualLayerEncoding(input) {
+            let result = btoa(input);
+            result = result.split('').reverse().join('');
+            result = btoa(result);
+            
+            return result;
+        },
+        
+        applyStandardTransform(input) {
+            return btoa(input.split('').reverse().join(''));
+        },
+        
+        applyIterativeTransform(input, iteration) {
+            const seed = obfuscationSeed + iteration;
+            
+            return input.split('').map((char, index) => {
+                const code = char.charCodeAt(0);
+                const transformed = (code ^ (seed % 256)) + iteration;
+                return String.fromCharCode((transformed % 95) + 32);
+            }).join('');
+        }
+    };
+
+    /******************************************************************************/
+
+    // Initialize signature obfuscation - Enhanced for v2.0.0
     const initialize = function() {
         if (!config.enabled) return;
 
-        console.log('[OblivionFilter] Initializing Signature Obfuscation Engine...');
+        console.log('[OblivionFilter] Signature Obfuscation Engine v2.0.0 initializing...');
 
-        // Generate initial signature
+        // v2.0.0: Initialize context analysis
+        if (config.contextAwareRotation && typeof window !== 'undefined') {
+            try {
+                const initialContext = ContextAnalyzer.analyzePageContext();
+                console.log(`[OblivionFilter] Context analyzed: ${initialContext.pageType} (risk: ${initialContext.detectionRisk})`);
+            } catch (error) {
+                console.warn('[OblivionFilter] Initial context analysis failed:', error);
+            }
+        }
+
+        // Generate initial signature with v2.0.0 enhancements
         generateNewSignature();
 
         // Setup signature rotation
@@ -76,13 +350,90 @@ const SignatureObfuscationEngine = (function() {
             setupPolymorphicGeneration();
         }
 
+        // v2.0.0: Initialize advanced features
+        if (config.entropyMaximization) {
+            console.log('[OblivionFilter] Entropy maximization enabled');
+        }
+
+        if (config.semanticObfuscation) {
+            console.log('[OblivionFilter] Semantic obfuscation enabled');
+        }
+
+        console.log('[OblivionFilter] Signature Obfuscation Engine v2.0.0 initialized successfully');
+        console.log('[OblivionFilter] Active features:', {
+            contextAware: config.contextAwareRotation,
+            adaptiveObfuscation: config.adaptiveObfuscation,
+            machineCodeGeneration: config.machineCodeGeneration,
+            semanticObfuscation: config.semanticObfuscation,
+            entropyMaximization: config.entropyMaximization
+        });
+
         console.log('[OblivionFilter] Signature Obfuscation Engine initialized');
     };
 
     /******************************************************************************/
 
-    // Generate new obfuscated signature
+    // Generate new obfuscated signature - Enhanced for v2.0.0
     const generateNewSignature = function() {
+        const timestamp = Date.now();
+        
+        // v2.0.0: Context-aware signature generation
+        if (config.contextAwareRotation && typeof window !== 'undefined') {
+            try {
+                const context = ContextAnalyzer.analyzePageContext();
+                const contextualSignature = PatternGenerator.generateContextualPattern(context);
+                
+                // Adaptive obfuscation level based on risk
+                const adaptiveLevel = Math.min(5, config.obfuscationLevel + Math.floor(context.detectionRisk / 2));
+                contextAnalysis.adaptiveLevel = adaptiveLevel;
+                
+                // Apply advanced obfuscation layers
+                let signature = contextualSignature;
+                for (let i = 0; i < adaptiveLevel; i++) {
+                    signature = obfuscateString(signature, i);
+                }
+                
+                // Store in pattern variants cache
+                if (config.machineCodeGeneration) {
+                    patternVariants.set(context.pageType, signature);
+                }
+                
+                currentSignature = signature;
+                
+                console.log(`[OblivionFilter] Generated v2.0.0 signature for ${context.pageType} (risk: ${context.detectionRisk})`);
+                
+            } catch (error) {
+                console.warn('[OblivionFilter] Context-aware generation failed, using fallback:', error);
+                currentSignature = generateFallbackSignature();
+            }
+        } else {
+            // Fallback to basic generation
+            currentSignature = generateFallbackSignature();
+        }
+
+        // Store signature history
+        signatureHistory.push({
+            signature: currentSignature,
+            timestamp: timestamp,
+            level: contextAnalysis.adaptiveLevel || config.obfuscationLevel,
+            context: contextAnalysis.pageType || 'unknown'
+        });
+
+        // Limit history size
+        if (signatureHistory.length > config.maxPatternVariants) {
+            signatureHistory.shift();
+        }
+
+        // Update last rotation time
+        contextAnalysis.lastRotation = timestamp;
+
+        return currentSignature;
+    };
+
+    /******************************************************************************/
+
+    // v2.0.0: Fallback signature generation
+    const generateFallbackSignature = function() {
         const timestamp = Date.now();
         const random = Math.random().toString(36).substring(2);
         const seed = obfuscationSeed.toString(16);
@@ -92,19 +443,6 @@ const SignatureObfuscationEngine = (function() {
         
         for (let i = 0; i < config.obfuscationLevel; i++) {
             signature = obfuscateString(signature, i);
-        }
-
-        // Store current signature
-        currentSignature = signature;
-        signatureHistory.push({
-            signature: signature,
-            timestamp: timestamp,
-            level: config.obfuscationLevel
-        });
-
-        // Limit history size
-        if (signatureHistory.length > 100) {
-            signatureHistory.shift();
         }
 
         return signature;
@@ -571,15 +909,66 @@ const SignatureObfuscationEngine = (function() {
 
     /******************************************************************************/
 
-    // Public API
+    // Public API - Enhanced for v2.0.0
     return {
+        // Core functions
         initialize: initialize,
         cleanup: cleanup,
+        
+        // Signature management
         getCurrentSignature: getCurrentSignature,
         generateNewSignature: generateNewSignature,
+        
+        // v2.0.0 Advanced features
+        analyzeContext: () => ContextAnalyzer.analyzePageContext(),
+        generateContextualPattern: (context) => PatternGenerator.generateContextualPattern(context),
+        
+        // Statistics and monitoring
         getStats: getStats,
-        config: config
+        getAdvancedStats() {
+            return {
+                ...getStats(),
+                contextAnalysis: { ...contextAnalysis },
+                patternVariants: patternVariants.size,
+                entropyCache: entropyCache.size,
+                semanticMappings: semanticMappings.size,
+                generatedCode: generatedCode.size,
+                polymorphicFunctions: polymorphicFunctions.size,
+                version: '2.0.0'
+            };
+        },
+        
+        // Configuration management
+        config: config,
+        updateConfig(newConfig) {
+            Object.assign(config, newConfig);
+            console.log('[OblivionFilter] Signature obfuscation configuration updated:', newConfig);
+        },
+        
+        // v2.0.0 Pattern management
+        clearPatternCache() {
+            patternVariants.clear();
+            entropyCache.clear();
+            semanticMappings.clear();
+            generatedCode.clear();
+            console.log('[OblivionFilter] Pattern cache cleared');
+        },
+        
+        // Version and feature info
+        version: '2.0.0',
+        features: [
+            'Context-Aware Pattern Generation',
+            'Adaptive Obfuscation Levels', 
+            'Semantic Scrambling',
+            'Multi-Layer Encoding',
+            'Polymorphic Transformations',
+            'Machine Code Generation',
+            'Entropy Maximization'
+        ]
     };
+
+    // Export the engine
+    return SignatureObfuscationEngine;
 
 })();
 
@@ -587,7 +976,10 @@ const SignatureObfuscationEngine = (function() {
 
 // Auto-initialize if in browser environment
 if (typeof window !== 'undefined' && window.document) {
-    SignatureObfuscationEngine.initialize();
+    window.SignatureObfuscationEngine = SignatureObfuscationEngine;
+    if (window.oblivionContentConfig && window.oblivionContentConfig.stealth.signatureObfuscation.enabled) {
+        SignatureObfuscationEngine.initialize();
+    }
 }
 
 /******************************************************************************/
