@@ -75,6 +75,14 @@ const oblivionConfig = {
             globalTrafficManagement: true,
             crossTabCoordination: true,
             networkLevelObfuscation: true
+        },
+        
+        // v2.0.0 Behavioral Mimicry
+        behavioralMimicry: {
+            enabled: true,
+            coordinateAcrossTabs: true,
+            globalBehaviorSync: true,
+            backgroundSimulation: false // Limited in background context
         }
     },
     performance: {

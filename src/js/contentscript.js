@@ -92,6 +92,16 @@ const oblivionContentConfig = {
             headerRandomization: true,
             dummyTraffic: true,
             statisticalPoisoning: true
+        },
+        
+        // v2.0.0 Behavioral Mimicry
+        behavioralMimicry: {
+            enabled: true,
+            mouseMovements: true,
+            scrollingPatterns: true,
+            interactionSimulation: true,
+            humanTiming: true,
+            contextAwareness: true
         }
     },
     
@@ -644,6 +654,53 @@ const antiDetectionEngine = (function() {
             console.info('OblivionFilter: Traffic Randomization Engine v2.0.0 initialized in content script');
         } catch (error) {
             console.warn('OblivionFilter: Traffic Randomization initialization failed:', error);
+        }
+    }
+    
+    // v2.0.0: Initialize Behavioral Mimicry Engine
+    if (oblivionContentConfig.stealth.behavioralMimicry.enabled && 
+        typeof BehavioralMimicryEngine !== 'undefined') {
+        try {
+            BehavioralMimicryEngine.updateConfig({
+                enabled: oblivionContentConfig.stealth.behavioralMimicry.enabled,
+                
+                behavior: {
+                    mouseMovements: oblivionContentConfig.stealth.behavioralMimicry.mouseMovements,
+                    scrolling: oblivionContentConfig.stealth.behavioralMimicry.scrollingPatterns,
+                    clickPatterns: true,
+                    focusChanges: true,
+                    windowResize: false // Disabled to avoid disruption
+                },
+                
+                timing: {
+                    humanLike: oblivionContentConfig.stealth.behavioralMimicry.humanTiming,
+                    variableDelays: true,
+                    reactionTimes: { min: 150, max: 1200 }
+                },
+                
+                interactions: {
+                    randomScrolling: oblivionContentConfig.stealth.behavioralMimicry.interactionSimulation,
+                    mouseHover: true,
+                    elementInspection: oblivionContentConfig.stealth.behavioralMimicry.contextAwareness,
+                    keyboardShortcuts: false // Disabled to avoid interference
+                },
+                
+                antiDetection: {
+                    avoidPerfectTiming: true,
+                    simulateDistractions: true,
+                    variableAccuracy: true,
+                    naturalPauses: true
+                }
+            });
+            
+            // Initialize after a delay to allow page to stabilize
+            setTimeout(() => {
+                BehavioralMimicryEngine.initialize();
+            }, 2000 + Math.random() * 3000); // 2-5 second delay
+            
+            console.info('OblivionFilter: Behavioral Mimicry Engine v2.0.0 configured in content script');
+        } catch (error) {
+            console.warn('OblivionFilter: Behavioral Mimicry initialization failed:', error);
         }
     }
     
