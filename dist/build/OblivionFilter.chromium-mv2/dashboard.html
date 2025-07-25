@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OblivionFilter</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+</head>
+<body>
+    <div id="dashboard">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="icon">🕶️</span>
+                    OblivionFilter
+                    <span class="version">v1.0.0</span>
+                </h1>
+                <div class="subtitle">Advanced Privacy Content Blocker</div>
+            </div>
+        </header>
+        
+        <nav class="nav-tabs">
+            <button class="tab-button active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-button" data-tab="filters">Filter Lists</button>
+            <button class="tab-button" data-tab="rules">My Rules</button>
+            <button class="tab-button" data-tab="stealth">Stealth Mode</button>
+            <button class="tab-button" data-tab="settings">Settings</button>
+            <button class="tab-button" data-tab="about">About</button>
+        </nav>
+        
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="blockedCount">0</div>
+                        <div class="stat-label">Requests Blocked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="filterCount">0</div>
+                        <div class="stat-label">Filter Rules</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="listCount">0</div>
+                        <div class="stat-label">Filter Lists</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stealthStatus">OFF</div>
+                        <div class="stat-label">Stealth Mode</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="updateFilters">Update Filter Lists</button>
+                    <button class="btn btn-secondary" id="toggleStealth">Toggle Stealth Mode</button>
+                    <button class="btn btn-secondary" id="openLogger">Open Logger</button>
+                </div>
+            </div>
+            
+            <!-- Filter Lists Tab -->
+            <div id="tab-filters" class="tab-content">
+                <div class="filter-lists">
+                    <h2>Filter Lists</h2>
+                    <div id="filterListContainer">
+                        <!-- Filter lists will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- My Rules Tab -->
+            <div id="tab-rules" class="tab-content">
+                <div class="custom-rules">
+                    <h2>My Rules</h2>
+                    <textarea id="customRules" placeholder="Add your custom filter rules here..."></textarea>
+                    <button class="btn btn-primary" id="saveRules">Save Rules</button>
+                </div>
+            </div>
+            
+            <!-- Stealth Mode Tab -->
+            <div id="tab-stealth" class="tab-content">
+                <div class="stealth-settings">
+                    <h2>Stealth Mode Configuration</h2>
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="stealthModeEnabled">
+                            Enable Stealth Mode
+                        </label>
+                        <div class="setting-description">
+                            Enables advanced anti-detection and behavioral mimicry
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">Anti-Detection Level</label>
+                        <select id="antiDetectionLevel">
+                            <option value="0">Disabled</option>
+                            <option value="1">Basic</option>
+                            <option value="2">Advanced</option>
+                            <option value="3" selected>Paranoid</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="randomizeTimings">
+                            Randomize Request Timings
+                        </label>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="bypassAntiAdblock">
+                            Bypass Anti-Adblock Detection
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="tab-settings" class="tab-content">
+                <div class="settings">
+                    <h2>General Settings</h2>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="enableFiltering">
+                            Enable Network Filtering
+                        </label>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="enableCosmetic">
+                            Enable Cosmetic Filtering
+                        </label>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="enableDecentralized">
+                            Enable Decentralized Updates
+                        </label>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            <input type="checkbox" id="localMirroring">
+                            Enable Local Mirroring
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Tab -->
+            <div id="tab-about" class="tab-content">
+                <div class="about">
+                    <h2>About OblivionFilter</h2>
+                    <p>
+                        OblivionFilter is an advanced, privacy-respecting content blocker 
+                        designed for stealth operations, censorship resistance, and 
+                        maximum filtering effectiveness.
+                    </p>
+                    
+                    <div class="feature-list">
+                        <h3>Key Features:</h3>
+                        <ul>
+                            <li>🛡️ Anti-Adblock Bypass</li>
+                            <li>🔄 Manifest V3 Resistance</li>
+                            <li>🌐 Decentralized Updates</li>
+                            <li>🚀 High Performance</li>
+                            <li>🔐 Zero Telemetry</li>
+                            <li>💼 Sideloadable</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="version-info">
+                        <p><strong>Version:</strong> 1.0.0 (Stealth)</p>
+                        <p><strong>License:</strong> GPL v3</p>
+                        <p><strong>Author:</strong> Muzan Sano & contributors</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/vapi.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

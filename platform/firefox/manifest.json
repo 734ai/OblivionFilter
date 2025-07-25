@@ -1,0 +1,114 @@
+{
+  "author": "Muzan Sano & contributors",
+  "manifest_version": 2,
+  "name": "OblivionFilter",
+  "version": "1.0.0",
+  "description": "Advanced privacy-respecting content blocker with stealth and censorship resistance capabilities",
+  
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  
+  "browser_action": {
+    "default_icon": {
+      "16": "img/icon_16.png",
+      "32": "img/icon_32.png",
+      "64": "img/icon_64.png",
+      "128": "img/icon_128.png"
+    },
+    "default_title": "OblivionFilter",
+    "default_popup": "popup.html",
+    "browser_style": false
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "/js/vapi.js",
+        "/js/vapi-client.js", 
+        "/js/contentscript.js"
+      ],
+      "css": [
+        "/css/contentscript.css"
+      ],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_start"
+    }
+  ],
+  
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'none'",
+  
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "unlimitedStorage",
+    "contextMenus",
+    "privacy",
+    "<all_urls>"
+  ],
+  
+  "optional_permissions": [
+    "file://*/*"
+  ],
+  
+  "web_accessible_resources": [
+    "/web_accessible_resources/*"
+  ],
+  
+  "options_ui": {
+    "page": "dashboard.html",
+    "open_in_tab": true,
+    "browser_style": false
+  },
+  
+  "applications": {
+    "gecko": {
+      "id": "oblivionfilter@muzansano.dev",
+      "strict_min_version": "91.0"
+    }
+  },
+  
+  "icons": {
+    "16": "img/icon_16.png",
+    "32": "img/icon_32.png",
+    "48": "img/icon_48.png",
+    "64": "img/icon_64.png",
+    "96": "img/icon_96.png",
+    "128": "img/icon_128.png"
+  },
+  
+  "commands": {
+    "launch-element-zapper": {
+      "description": "Element zapper"
+    },
+    "launch-element-picker": {
+      "description": "Element picker"
+    },
+    "launch-logger": {
+      "description": "Open logger"
+    },
+    "open-dashboard": {
+      "description": "Open dashboard"
+    },
+    "relax-blocking-mode": {
+      "description": "Relax blocking mode"
+    },
+    "toggle-cosmetic-filtering": {
+      "description": "Toggle cosmetic filtering"
+    },
+    "toggle-javascript": {
+      "description": "Toggle JavaScript"
+    }
+  },
+  
+  "homepage_url": "https://github.com/OblivionFilter/OblivionFilter"
+}

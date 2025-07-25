@@ -1,0 +1,105 @@
+{
+  "name": "oblivionfilter",
+  "version": "1.0.0",
+  "description": "Advanced privacy-respecting content blocker with stealth and censorship resistance capabilities",
+  "main": "src/js/background.js",
+  "scripts": {
+    "build": "make all",
+    "build:chromium-mv2": "make chromium-mv2",
+    "build:chromium-mv3": "make chromium-mv3", 
+    "build:firefox": "make firefox",
+    "package": "make package",
+    "clean": "make clean",
+    "lint": "eslint src/js/**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "make watch",
+    "info": "make info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OblivionFilter/OblivionFilter.git"
+  },
+  "keywords": [
+    "adblocker",
+    "privacy",
+    "content-blocker",
+    "stealth",
+    "censorship-resistance",
+    "webextension",
+    "content-blocker",
+    "manifest-v3",
+    "anti-adblock",
+    "decentralized"
+  ],
+  "author": "Muzan Sano & contributors",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/OblivionFilter/OblivionFilter/issues"
+  },
+  "homepage": "https://github.com/OblivionFilter/OblivionFilter#readme",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "@eslint/js": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 88",
+    "Firefox >= 91",
+    "Edge >= 88"
+  ],
+  "webExtension": {
+    "manifestVersion": {
+      "mv2": "platform/chromium-mv2/manifest.json",
+      "mv3": "platform/chromium-mv3/manifest.json",
+      "firefox": "platform/firefox/manifest.json"
+    },
+    "sourceDir": "src",
+    "buildDir": "dist/build",
+    "packageDir": "dist/packages"
+  },
+  "oblivionFilter": {
+    "version": "1.0.0",
+    "codename": "Stealth",
+    "build": {
+      "timestamp": "2025-07-25",
+      "features": [
+        "anti-adblock-bypass",
+        "stealth-mode",
+        "censorship-resistance", 
+        "decentralized-updates",
+        "manifest-v3-compatibility",
+        "zero-telemetry"
+      ]
+    },
+    "compatibility": {
+      "chromium": {
+        "mv2": true,
+        "mv3": true,
+        "minimumVersion": "88"
+      },
+      "firefox": {
+        "mv2": true,
+        "mv3": false,
+        "minimumVersion": "91"
+      }
+    },
+    "security": {
+      "csp": "script-src 'self' 'unsafe-eval'; object-src 'none'",
+      "permissions": {
+        "essential": [
+          "tabs",
+          "activeTab", 
+          "storage",
+          "webRequest",
+          "webRequestBlocking"
+        ],
+        "optional": [
+          "nativeMessaging",
+          "file://*/*"
+        ]
+      }
+    }
+  }
+}
