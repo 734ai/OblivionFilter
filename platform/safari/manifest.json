@@ -1,0 +1,86 @@
+{
+  "manifest_version": 2,
+  "name": "OblivionFilter - Privacy Shield",
+  "version": "2.0.0",
+  "description": "Enterprise-grade privacy tool with advanced stealth capabilities and censorship resistance",
+  
+  "icons": {
+    "16": "../../src/img/icon16.png",
+    "32": "../../src/img/icon32.png",
+    "48": "../../src/img/icon48.png",
+    "128": "../../src/img/icon128.png"
+  },
+  
+  "background": {
+    "page": "../../src/background.html",
+    "persistent": true
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "../../src/js/utils.js",
+        "../../src/js/uri-utils.js",
+        "../../src/js/dom.js",
+        "../../src/js/vapi-client.js",
+        "../../src/js/contentscript.js",
+        "../../src/js/cosmetic-filtering.js",
+        "../../src/js/scriptlet-filtering.js",
+        "safari-content-adapter.js"
+      ],
+      "css": [
+        "../../src/css/common.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  
+  "browser_action": {
+    "default_popup": "../../src/popup.html",
+    "default_title": "OblivionFilter",
+    "default_icon": {
+      "16": "../../src/img/icon16.png",
+      "32": "../../src/img/icon32.png"
+    }
+  },
+  
+  "options_page": "../../src/dashboard.html",
+  
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "contextMenus",
+    "background",
+    "<all_urls>",
+    "nativeMessaging"
+  ],
+  
+  "web_accessible_resources": [
+    "../../src/js/vapi-client.js",
+    "../../src/js/scriptlet-filtering.js",
+    "../../src/css/common.css"
+  ],
+  
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  
+  "safari": {
+    "content_blocker": {
+      "rules": "safari-content-blocker-rules.json"
+    },
+    "native_messaging": {
+      "allowed_origins": [
+        "application.com.oblivionfilter.safari.*"
+      ]
+    },
+    "website_access": {
+      "allowed_domains": ["*"],
+      "level": "all"
+    }
+  }
+}

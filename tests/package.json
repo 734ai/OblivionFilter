@@ -1,0 +1,46 @@
+{
+  "name": "oblivion-filter-testing",
+  "version": "2.0.0",
+  "description": "OblivionFilter Testing Framework Dependencies",
+  "scripts": {
+    "test": "node tests/test-runner.js",
+    "test:integration": "playwright test tests/integration/",
+    "test:load": "node tests/load-testing.js",
+    "test:security": "node tests/security-testing.js",
+    "test:coverage": "node tests/coverage-analysis.js",
+    "test:all": "npm run test:coverage && npm run test:integration && npm run test:load && npm run test:security",
+    "test:ci": "npm run test:all -- --reporter=json",
+    "coverage": "npm run test:coverage && open tests/reports/coverage-report.html",
+    "security-scan": "npm run test:security && open tests/reports/security-assessment-*.md"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "axios": "^1.6.0",
+    "ws": "^8.14.0",
+    "typescript": "^5.3.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.0",
+    "nyc": "^15.1.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "testing",
+    "coverage",
+    "security",
+    "load-testing",
+    "integration",
+    "playwright",
+    "oblivion-filter"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oblivion-filter/oblivion-filter.git"
+  },
+  "license": "MIT"
+}

@@ -135,6 +135,23 @@ const oblivionConfig = {
             distributedLearning: false, // Future feature
             modelSyncAcrossTabs: true,
             backgroundTraining: true
+        },
+        
+        // v2.0.0 Tor Integration (Phase 3 - Complete Censorship Resistance)
+        torIntegration: {
+            enabled: true,
+            autoDetectTorProxy: true,
+            enableBridgeDiscovery: true,
+            enableHiddenServices: true,
+            preferV3Onions: true,
+            
+            // Background-specific Tor settings
+            coordinateTorCircuits: true,
+            manageBridgePool: true,
+            onionDomainCaching: true,
+            crossTabTorSync: true,
+            bridgeHealthMonitoring: true,
+            torTrafficCoordination: true
         }
     },
     performance: {
@@ -419,10 +436,16 @@ const OblivionFilter = (function() {
                 await initializeStealthFeatures();
             }
 
+            // v2.0.0: Initialize Tor integration (Phase 3 - Complete Censorship Resistance)
+            if (oblivionConfig.stealth.torIntegration.enabled) {
+                await initializeTorIntegration();
+            }
+
             initialized = true;
-            console.log('[OblivionFilter] v2.0.0 initialization complete with advanced stealth');
+            console.log('[OblivionFilter] v2.0.0 initialization complete with advanced stealth and Tor integration');
             console.log('[OblivionFilter] Memory protection:', oblivionConfig.features.memoryProtection);
             console.log('[OblivionFilter] Shadow DOM support:', oblivionConfig.features.shadowDOMSupport);
+            console.log('[OblivionFilter] Tor integration:', oblivionConfig.stealth.torIntegration.enabled);
 
         } catch (error) {
             console.error('[OblivionFilter] Initialization failed:', error);
@@ -541,6 +564,81 @@ const OblivionFilter = (function() {
         }
 
         console.log('[OblivionFilter] Behavioral mimicry initialized');
+    };
+
+    /******************************************************************************/
+
+    // v2.0.0: Initialize Tor integration (Phase 3 - Complete Censorship Resistance)
+    const initializeTorIntegration = async function() {
+        try {
+            console.log('[OblivionFilter] Initializing Tor integration...');
+            
+            // Check if Tor components are available
+            if (typeof window !== 'undefined' && window.torIntegrationManager) {
+                // Initialize Tor proxy detection and circuit management
+                await window.torIntegrationManager.init();
+                
+                // Setup onion domain handling
+                if (window.onionDomainHandler) {
+                    await window.onionDomainHandler.init();
+                }
+                
+                // Initialize bridge relay system
+                if (window.bridgeRelaySystem) {
+                    await window.bridgeRelaySystem.init();
+                }
+                
+                // Setup cross-tab Tor coordination
+                if (oblivionConfig.stealth.torIntegration.crossTabTorSync) {
+                    setupTorCoordination();
+                }
+                
+                console.log('[OblivionFilter] Tor integration initialized successfully');
+                
+                // Report Tor status
+                const torStatus = window.torIntegrationManager.getStatus();
+                console.log('[OblivionFilter] Tor proxy detected:', torStatus.proxy ? 'Yes' : 'No');
+                console.log('[OblivionFilter] Active circuits:', torStatus.circuits);
+                console.log('[OblivionFilter] Bridge connections:', torStatus.bridges);
+                
+            } else {
+                console.warn('[OblivionFilter] Tor integration components not available');
+            }
+            
+        } catch (error) {
+            console.error('[OblivionFilter] Failed to initialize Tor integration:', error);
+        }
+    };
+    
+    // Setup cross-tab Tor coordination
+    const setupTorCoordination = function() {
+        // Listen for Tor events from other tabs
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (message.type === 'tor-circuit-request') {
+                // Handle circuit sharing requests
+                if (window.torIntegrationManager) {
+                    const circuit = window.torIntegrationManager.circuitManager.getBestCircuit(
+                        message.domain,
+                        message.purpose
+                    );
+                    sendResponse({ circuit: circuit ? circuit.id : null });
+                }
+            } else if (message.type === 'tor-bridge-discovery') {
+                // Share discovered bridges
+                if (window.bridgeRelaySystem) {
+                    const bridges = window.bridgeRelaySystem.getBridgeList();
+                    sendResponse({ bridges });
+                }
+            } else if (message.type === 'onion-cache-sync') {
+                // Sync onion domain cache
+                if (window.onionDomainHandler) {
+                    const cacheData = window.onionDomainHandler.onionCache;
+                    sendResponse({ cache: Array.from(cacheData.entries()) });
+                }
+            }
+        });
+        
+        console.log('[OblivionFilter] Tor coordination setup complete');
     };
 
     /******************************************************************************/

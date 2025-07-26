@@ -1,0 +1,273 @@
+[
+  {
+    "trigger": {
+      "url-filter": ".*",
+      "resource-type": ["document", "script", "image", "stylesheet", "media", "font", "other"]
+    },
+    "action": {
+      "type": "block"
+    },
+    "comment": "Default block rule - will be overridden by specific rules"
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.doubleclick\\.net/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.googlesyndication\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.googleadservices\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.facebook\\.com/tr/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.google-analytics\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.googletagmanager\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.amazon-adsystem\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.adsystem\\.amazon\\.",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.twitter\\.com/i/adsct",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.outbrain\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.taboola\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.bing\\.com/tr/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.linkedin\\.com/tr/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.pinterest\\.com/tr/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.snapchat\\.com/tr/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.tiktok\\.com/tr/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.criteo\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.adsystem\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.ads\\.yahoo\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.adsystem\\.microsoft\\.com/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "/ads?/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "/advertisement/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "/tracking/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "/analytics/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "/metrics/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "/telemetry/",
+      "resource-type": ["script", "image", "other"]
+    },
+    "action": {
+      "type": "block"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://localhost:",
+      "resource-type": ["document", "script", "image", "stylesheet", "media", "font", "other"]
+    },
+    "action": {
+      "type": "ignore-previous-rules"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://127\\.0\\.0\\.1:",
+      "resource-type": ["document", "script", "image", "stylesheet", "media", "font", "other"]
+    },
+    "action": {
+      "type": "ignore-previous-rules"
+    }
+  },
+  {
+    "trigger": {
+      "url-filter": "^https?://[^/]*\\.local/",
+      "resource-type": ["document", "script", "image", "stylesheet", "media", "font", "other"]
+    },
+    "action": {
+      "type": "ignore-previous-rules"
+    }
+  }
+]
